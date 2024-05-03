@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Inherited product.category form view to add the category image -->
+    <record id="view_product_category_form_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.view.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="after">
+                <field name="cat_image" widget="image" class="oe_avatar ml-3 mr-3"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="after">              
+                    <field name="category_group_id"/>
+                    <field name="public_categ_ids" widget="many2many_tags"/>
+                   
+                    <field name="attribute_line_ids" widget="one2many" context="{'show_attribute': False}">
+                        <tree string="Variants" editable="bottom" decoration-info="value_count &lt;= 1">
+                            <field name="value_count" invisible="1"/>
+                            <field name="attribute_id" readonly="(id!=False)"/>
+                            <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}" context="{'default_attribute_id': attribute_id, 'show_attribute': False}"/>
+                        </tree>
+                    </field>
+                     <field name="product_tag_ids" widget="many2many_tags"/>
+            </xpath>
+            
+        </field>
+    </record>
+   
+    <!-- Modify the existing product category list view to add the 'Add New Product' button -->
+    <record id="view_product_category_list_inherit" model="ir.ui.view">
+        <field name="name">inventory.product.category.list.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="before">
+                <!-- Add the cat_image field at the beginning, before the display_name -->
+                <field name="cat_image_thumb" widget="image" class="oe_avatar" invisible="(cat_image_thumb==False)" />
+                <field name="name" string="Category Name" />
+            </xpath>
+            <xpath expr="//tree" position="inside">
+                <field name="product_count" string="Number of Products"/>
+                <button class="oe_stat_button"
+                    name="154"
+                    icon="fa-th-list"
+                    type="action"
+                    context="{'search_default_categ_id': id, 'default_categ_id': id, 'group_expand': True}"
+                    string="View Products">
+                </button>
+                <button name="action_add_product"
+                        type="object"
+                        string="Add New Product"
+                        class="oe_highlight"
+                        context="{}"/>
+            </xpath>
+        </field>
+    </record>
+    
+    
+    <!-- Extend the search view of product category -->
+    <record id="view_product_category_search_inherit" model="ir.ui.view">
+        <field name="name">product.category.search.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_search_view"/> <!-- inherit from the original search view -->
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <!-- Add a filter to show categories with child_count > 0 -->
+                <filter string="Has No Children" name="has_children" domain="[('child_count', '=', 0)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

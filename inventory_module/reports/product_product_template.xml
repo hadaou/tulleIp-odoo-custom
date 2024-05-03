@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_simple_label_dymo_modified" inherit_id="product.report_simple_label_dymo">
+        <xpath expr="." position="replace">
+            <div class="o_label_sheet o_label_dymo" t-att-style="padding_page">
+                <div class="o_label_full" t-att-style="table_style">
+                    <div class= "text-start o_label_small_barcode">
+                        <t t-if="barcode">
+                            <!-- `quiet=0` to remove the left and right margins on the barcode -->
+                            <div t-out="barcode" style="padding:0" t-options="{'widget': 'barcode', 'quiet': 0, 'symbology': 'auto', 'img_style': barcode_size}"/>
+                            <div class="o_label_name" style="height:1.7em;background-color: transparent;">
+                                <span t-out="barcode" style="font-size:1.2em;"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="o_label_name" style="line-height: 100%;background-color: transparent;padding-top: 1px;">
+                        <span t-if="product.is_product_variant" t-field="product.display_name" style="font-size:1em;"/>
+                        <span t-else="" t-field="product.name" style="font-size:1em;"/>
+                    </div>
+<!--                    <div class="o_label_left_column">-->
+<!--                        <small class="text-nowrap" t-field="product.default_code"/>-->
+<!--                    </div>-->
+                    <div class="text-end" style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 0 1px; height: 1em; line-height:1em;">
+                        <!-- Rental Price (if available) -->
+                        <t t-set="rental_price" t-value="pricelist._get_product_rental_price(product, 1, 'day')"/>
+                        <t t-set="sale_price" t-value="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"/>
+                        <span t-if="rental_price" style="white-space: nowrap;">
+                            Rent: <strong class="o_label_price_small" t-out="rental_price"
+                                   t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': False}" />
+                        </span>
+
+                        <!-- Standard Price -->
+                        <span style="white-space: nowrap;">
+                            Price: <strong class="o_label_price_small" t-out="sale_price"
+                                   t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': False}"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

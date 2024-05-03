@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_add_product_wizard_form" model="ir.ui.view">
+        <field name="name">add.product.wizard.form</field>
+        <field name="model">inventory.add_product_wizard</field>
+        <field name="arch" type="xml">
+            <form edit="1">
+                <sheet>
+                    <group>
+                        <field name="vendor_id" placeholder="Select the Vendor"/>
+                        <field name="product_code" placeholder="Enter product code..." required="1"/>
+                        <field name="product_name" placeholder="Enter product name..." required="1"/>
+                        <field name="currency_id" invisible="1"/>
+                       <label for="product_price"/>
+                        <div class="d-flex flex-row">
+                            <div>
+                                <field name="product_price" placeholder="Enter product price..."  widget='monetary' options="{'currency_field': 'currency_id'}"  />
+                            </div>
+                            <div  class="d-flex flex-row;">
+                                <label for="rent_ok"/>
+                                <field name="rent_ok" style="width: 4rem;"/>
+                                <div class="d-flex flex-row;"  invisible="(rent_ok==False)">
+                                    <label for="product_daily_rental_price"/>
+                                    <field name="product_daily_rental_price" style=" width: 4rem;" widget='monetary' options="{'currency_field': 'currency_id'}"   placeholder="Enter the rental price.." />
+                                </div>
+                            </div>
+                        </div>
+                        <field name="p_image" widget="image" class="oe_avatar"/>
+
+                        <field name="attribute_line_ids" widget="one2many" context="{'show_attribute': False}">
+                            <tree string="Variants" editable="bottom" decoration-info="value_count &lt;= 1">
+                                <field name="value_count" column_invisible="True"/>
+                                <field name="attribute_id" column_invisible="True"/>
+                                <field name="sequence" widget="handle"/>
+                                <field name="attribute_id" required="1" options="{'no_open': True}" readonly="(value_count &gt;= 1)"/>
+                                <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}" context="{'default_attribute_id': attribute_id, 'show_attribute': False}"/>
+                            </tree>
+                        </field>
+
+                        <field name="public_categ_ids" widget="many2many_tags"/>
+                         <field name="product_tag_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button string="Add Product" type="object" class="oe_highlight" name="action_add_product" readonly="(product_code==False)"/>
+                        <button string="Add More Details" type="object" class="oe_highlight" name="action_add_product_then_add_details" readonly="(product_code==False)"/>
+                        <button string="Cancel"  special="cancel" class="btn-secondary" type="btn_close"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>   
+
+     <!-- Action to open the 'Add New Product' wizard. -->
+    <record id="action_open_add_product_wizard" model="ir.actions.act_window">
+        <field name="name">Add New Product</field>
+        <field name="res_model">inventory.add_product_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="inventory_module.view_add_product_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action to open product categories -->
+        <record id="action_product_category" model="ir.actions.act_window">
+            <field name="name">Product Categories</field>
+            <field name="res_model">product.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to start a new product category.
+                </p>
+            </field>
+        </record>
+
+    <record id="menu_product_category" model="ir.ui.menu">
+        <field name="name">Product Categories</field>
+        <field name="sequence">5</field>
+        <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+        <field name="action" ref="action_product_category"/>
+    </record>
+</odoo>
