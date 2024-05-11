@@ -18,6 +18,7 @@ class ProductProduct(models.Model):
     )
     x_barcode_length = fields.Integer(compute='_compute_barcode_length',string="Barcode Length", store=True)
 
+
     @api.depends('barcode')  # Correct dependency
     def _compute_barcode_length(self):
         for record in self:
@@ -47,3 +48,7 @@ class ProductProduct(models.Model):
             if record.internal_code:
                 record.barcode = record.internal_code + str(record.id)
         return records
+
+    @api.onchange('categ_id')
+    def _onchange_categ_id_product(self):
+        self.product_tmpl_id.onchange_categ_id()

@@ -39,7 +39,8 @@
                         </field>
 
                         <field name="public_categ_ids" widget="many2many_tags"/>
-                         <field name="product_tag_ids" widget="many2many_tags"/>
+                        <field name="pos_categ_ids" widget="many2many_tags"/>
+                        <field name="product_tag_ids" widget="many2many_tags"/>
                     </group>
                     <footer>
                         <button string="Add Product" type="object" class="oe_highlight" name="action_add_product" readonly="(product_code==False)"/>

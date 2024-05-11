@@ -38,6 +38,10 @@ class ProductCategory(models.Model):
     public_categ_ids = fields.Many2many(
         'product.public.category', string='Public Categories', store=True)
 
+    pos_categ_ids = fields.Many2many(
+        'pos.category', string='POS Category',
+        help="Category used in the Point of Sale.")
+
     def action_add_product(self):
         self.ensure_one()
 
@@ -49,7 +53,8 @@ class ProductCategory(models.Model):
                 'value_ids': [(6, 0, line.value_ids.ids)]
             }) for line in self.attribute_line_ids],
             'product_tag_ids': [(6, 0, self.product_tag_ids.ids)],
-            'public_categ_ids': [(6, 0, self.public_categ_ids.ids)]
+            'public_categ_ids': [(6, 0, self.public_categ_ids.ids)],
+            'pos_categ_ids':[(6, 0, self.pos_categ_ids.ids)]
         })
 
         # Return an action to open the wizard in form view

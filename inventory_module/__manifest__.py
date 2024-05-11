@@ -1,7 +1,7 @@
 {
     'name': "TulleIP Inventory Module",
     'summary': "TulleIP Custom Inventory Management Features",
-    'version': '17.0.0.7',
+    'version': '17.0.0.8',
     'sequence': 10,
     'depends': ['product', 'sale','sale_renting', 'purchase', 'stock', 'website_sale'],
     'author': "Haitham Daou",

@@ -80,23 +80,6 @@ class AddProductWizard(models.TransientModel):
         else:
             internal_code = self.product_code
 
-        # Initialize an empty list to collect POS category IDs
-        pos_category_ids = []
-
-        # Iterate over each selected public category
-        for public_cat in self.public_categ_ids:
-            # Search for an existing POS category with the same name
-            pos_category = self.env['pos.category'].search([('name', '=', public_cat.name)], limit=1)
-
-            # If the POS category does not exist, create a new one
-            if not pos_category:
-                pos_category = self.env['pos.category'].create({'name': public_cat.name})
-
-            # Append the POS category ID to the list
-            pos_category_ids.append(pos_category.id)
-
-        # Use the (6, 0, pos_category_ids) command to set the pos_categ_ids field
-        pos_categ_ids = [(6, 0, pos_category_ids)]
 
         # Create a new product using the provided code
         product_vals = {
