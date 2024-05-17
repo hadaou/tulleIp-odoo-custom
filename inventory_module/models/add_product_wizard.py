@@ -92,7 +92,7 @@ class AddProductWizard(models.TransientModel):
             'image_1920': self.p_image,
             'available_in_pos': True,
             'list_price': self.product_price,
-            'pos_categ_ids': pos_categ_ids,
+            'pos_categ_ids': self.pos_categ_ids,
             'rent_ok': self.rent_ok,
             'detailed_type': 'product'
         }

@@ -1,7 +1,7 @@
 {
     'name': "TulleIP Sale Module",
     'summary': "TulleIP Custom Sales Management Features",
-    'version': '17.0.0.6',
+    'version': '17.0.0.8',
     'sequence': 11,
     'depends': ['product', 'sale','sale_renting'],
     'author': "Haitham Daou",
