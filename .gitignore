@@ -402,3 +402,8 @@ FodyWeavers.xsd
 /.vs/Glb.Ms.EsimService/v17/.suo
 /.vs/ProjectEvaluation/glb.ms.esimservice.metadata.v7.bin
 /.vs/ProjectEvaluation/glb.ms.esimservice.projects.v7.bin
+
+# ingnore cached
+__pycache__/
+*.pyc
+
