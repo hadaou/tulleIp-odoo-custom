@@ -1,0 +1,9 @@
+<odoo>
+<!-- Submenu for Districts under Localizations -->
+
+    <menuitem id="menu_district"
+                  name="Districts"
+                  parent="contacts.menu_localisation"
+                  action="action_res_district"
+                  sequence="20"/>
+</odoo>
