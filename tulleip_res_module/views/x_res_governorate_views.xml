@@ -1,0 +1,41 @@
+<odoo>
+    <!-- Governorate Form View -->
+    <record id="x_view_governorate_form" model="ir.ui.view">
+        <field name="name">x_res.governorate.form</field>
+        <field name="model">x_res.governorate</field>
+        <field name="arch" type="xml">
+            <form string="Governorate">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="arabic_name"/>
+                        <field name="country_id"/>
+                    </group>
+                    <group>
+                        <field name="district_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Governorate Tree View -->
+    <record id="x_view_governorate_tree" model="ir.ui.view">
+        <field name="name">x_res.governorate.tree</field>
+        <field name="model">x_res.governorate</field>
+        <field name="arch" type="xml">
+            <tree string="Governorate">
+                <field name="name"/>
+                <field name="arabic_name"/>
+                <field name="country_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action to Open Governorate Views -->
+    <record id="action_res_governorate" model="ir.actions.act_window">
+        <field name="name">Governorates</field>
+        <field name="res_model">x_res.governorate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,42 @@
+<odoo>
+    <!-- District Form View -->
+    <record id="x_view_district_form" model="ir.ui.view">
+        <field name="name">x_res.district.form</field>
+        <field name="model">x_res.district</field>
+        <field name="arch" type="xml">
+            <form string="District">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="arabic_name"/>
+                        <field name="governorate_id"/>
+                    </group>
+                    <group>
+                        <field name="subdivision_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- District Tree View -->
+    <record id="x_view_district_tree" model="ir.ui.view">
+        <field name="name">x_res.district.tree</field>
+        <field name="model">x_res.district</field>
+        <field name="arch" type="xml">
+            <tree string="District">
+                <field name="name"/>
+                <field name="arabic_name"/>
+                <field name="governorate_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <!-- Action to Open District Views -->
+    <record id="action_res_district" model="ir.actions.act_window">
+        <field name="name">Districts</field>
+        <field name="res_model">x_res.district</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

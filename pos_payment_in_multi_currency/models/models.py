@@ -72,6 +72,14 @@ class PosOrder(models.Model):
                     data['amount'] = statement_id[2].get('amount')
                     data['is_change'] = statement_id[2].get('is_change')
                     multi_payment_lines.append(data)
+                else:
+                    data['cid'] = statement_id[2].get('id')
+                    data['name'] = statement_id[2].get('wk_payment_name')
+                    data['other_currency_id'] = statement_id[2].get('other_currency_id')
+                    data['other_currency_amount'] = statement_id[2].get('other_currency_amount')
+                    data['amount'] = statement_id[2].get('amount')
+                    data['is_change'] = statement_id[2].get('is_change')
+                    multi_payment_lines.append(data)
             result['multi_payment_lines'] = multi_payment_lines
             result['reprint'] = True
 

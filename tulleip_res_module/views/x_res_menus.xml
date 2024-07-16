@@ -1,9 +1,21 @@
 <odoo>
 <!-- Submenu for Districts under Localizations -->
 
-    <menuitem id="menu_district"
+    <menuitem id="x_menu_governorate"
+                  name="Governorates"
+                  parent="contacts.menu_localisation"
+                  action="action_res_governorate"
+                  sequence="2"/>
+
+    <menuitem id="x_menu_district"
                   name="Districts"
                   parent="contacts.menu_localisation"
                   action="action_res_district"
-                  sequence="20"/>
+                  sequence="3"/>
+
+    <menuitem id="x_menu_subdivision"
+                  name="Area/Village"
+                  parent="contacts.menu_localisation"
+                  action="action_res_subdivision"
+                  sequence="4"/>
 </odoo>

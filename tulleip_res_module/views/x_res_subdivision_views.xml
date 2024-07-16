@@ -1,0 +1,38 @@
+<odoo>
+    <!-- Subdivision Form View -->
+    <record id="x_view_subdivision_form" model="ir.ui.view">
+        <field name="name">x_res.subdivision.form</field>
+        <field name="model">x_res.subdivision</field>
+        <field name="arch" type="xml">
+            <form string="Subdivision">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="arabic_name"/>
+                        <field name="district_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Subdivision Tree View -->
+    <record id="x_view_subdivision_tree" model="ir.ui.view">
+        <field name="name">x_res.subdivision.tree</field>
+        <field name="model">x_res.subdivision</field>
+        <field name="arch" type="xml">
+            <tree string="Subdivision">
+                <field name="name"/>
+                <field name="arabic_name"/>
+                <field name="district_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action to Open Subdivision Views -->
+    <record id="action_res_subdivision" model="ir.actions.act_window">
+        <field name="name">Subdivisions</field>
+        <field name="res_model">x_res.subdivision</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

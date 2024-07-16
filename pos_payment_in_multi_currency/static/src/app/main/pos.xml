@@ -61,6 +61,7 @@
                 <t t-if="pos.config.enable_multi_currency">
                     <t t-if="pos.get_order() and pos.get_order().use_multi_currency and line.is_multi_currency_payment">
                         <t t-if="line.other_currency_id">
+                            <!--Haitham remove other currency symbol
                             <span>
                                 (
                                 <t t-esc="pos.currency_by_id[line.other_currency_id].name" />
@@ -68,6 +69,7 @@
                                 <t t-esc="pos.currency_by_id[line.other_currency_id].symbol" />
                                 ) )
                             </span>
+                            -->
                         </t>
                     </t>
                 </t>
@@ -136,11 +138,13 @@
     <t t-name="pos_payment_in_multi_currency.MultiCurrencyPopup" owl="1">
         <main class="modal-body">
             <div class="popup second-validation-popup">
-                <div class="title multi-currency-title" style="background: #3e67c1; color: white; padding: 13px 20px;">
+                <div class="title multi-currency-title" style="background: #714B67; color: white; padding: 13px 20px;">
                     <p style="margin: 0px;">Multi Currency</p>
                 </div>
             <div class="body validation-body" style="font-family: 'Open Sans', sans-serif;">
-            <div style="display: flex; padding: 15px 45px; text-align: center;">
+                <!-- Haitham hide select currency-->
+                <div style="display: none">
+            <div style="display: flex; padding: 15px 45px; text-align: center; align-items: center;">
                 <div style="float: left; font-weight: 600;">
                     <span>Select Currency : </span>
                 </div>
@@ -167,6 +171,7 @@
                     </div>
                 </div>
             </div>
+                </div> <!-- Haitham, end hide select currency-->
             <div style="display: flex; padding: 15px 45px; text-align: center;">
                 <div style="float: left; font-weight: 600;">
                     <span>Current Rate : </span>
@@ -210,8 +215,8 @@
                         <t t-esc="line.name" />
                         <span  class="pos-receipt-right-align">
                             <!-- <t t-esc="this.env.services.pos.currency_by_id[line.other_currency_id].symbol" />  -->
-                            <t t-esc="env.services.pos.formating(env.services.pos.format_currency_n_symbol(line.other_currency_amount>0?line.other_currency_amount:0,0.0001),line.other_currency_id)"/>
-                            
+                            <t t-if="line.other_currency_amount" t-esc="env.services.pos.formating(env.services.pos.format_currency_n_symbol(line.other_currency_amount,0.0001),line.other_currency_id)"/>
+                             <t t-else="" t-esc="props.formatCurrency(line.amount)" />
                         </span>
                         
                     </div>

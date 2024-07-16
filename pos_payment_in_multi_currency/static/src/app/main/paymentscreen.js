@@ -29,7 +29,7 @@ patch(PaymentScreen.prototype, {
       return;
     }
     if (this.numberBuffer.get() === null) {
-      this.deletePaymentLine({ detail: { cid: this.selectedPaymentLine.cid } });
+      this.deletePaymentLine( this.selectedPaymentLine.cid);
     } else {
       if (this.selectedPaymentLine.is_multi_currency_payment) {
         var amt = (this.numberBuffer.getFloat() * this.pos.currency.rate) / this.selectedPaymentLine.other_currency_rate;
@@ -82,12 +82,14 @@ patch(PaymentScreen.prototype, {
         var popup = await self.popup.add(MultiCurrencyPopup, { 'payment_id': paymentMethod })
         if (popup.confirmed) {
           currency_id = popup.payload
+        }else{
+          return false
         }
       }
       var paymentline = this.currentOrder.add_paymentline(paymentMethod);
       if (current_order.selected_paymentline) {
         current_order.selected_paymentline.currency_id = parseInt(currency_id);
-        if (self.pos.currency_by_id) {
+        if (self.pos.currency_by_id && this.pos.config.enable_multi_currency && current_order.use_multi_currency) {
           var currency_data = self.pos.currency_by_id[currency_id];
           current_order.selected_paymentline.other_currency_id = parseInt(currency_id);
           if (currency_data) {
@@ -122,9 +124,11 @@ export class MultiCurrencyPopup extends AbstractAwaitablePopup {
       if (currency) {
         $(".wk-exchange-rate").html(currency.rate)
         var rate = (currency.rate * 1) / this.pos.currency_by_id[this.pos.config.currency_id[0]].rate
-        rate = formatFloat(round_di(rate, 5), { digits: [69, 5] })
+        rate = formatFloat(round_di(rate, 0), { digits: [69, 0] }) //Haitham, remove decimals
+        //rate = formatFloat(round_di(rate, 5), { digits: [69, 5] })
         $(".wk-currency-amount").html(rate)
-        $(".wk-currency-name").html(currency.name + "(" + currency.symbol + ")")
+        $(".wk-currency-name").html(currency.name)// Haitham,remove symbol
+        //$(".wk-currency-name").html(currency.name + "(" + currency.symbol + ")")
       }
     }
   }

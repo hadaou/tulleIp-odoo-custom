@@ -54,7 +54,9 @@ patch(PosStore.prototype, {
       },
       format_currency_n_symbol(amount, precisson) {
         if (typeof amount === 'number') {
-          var decimals = 4;
+
+          var decimals = 0; //Haitham remove decimals
+          //var decimals = 4;
           amount = round_di(amount, decimals)
           amount = formatFloat(round_di(amount, decimals), {
             digits: [69, decimals],
@@ -122,7 +124,8 @@ patch(Order.prototype, {
         if (line && line.currency_id) {
             var amt = (self.pos.currency_by_id[line.currency_id].rate * line.otc_amount) / self.pos.currency.rate
             line.other_currency_amount = (self.pos.currency_by_id[line.currency_id].rate * line.get_amount()) / self.pos.currency.rate;
-            var res = formatFloat(round_di(amt, 4), { digits: [69, 4] });
+            var res = formatFloat(round_di(amt, 0), { digits: [69, 0] }); //Haitham, remove decimals
+            //var res = formatFloat(round_di(amt, 4), { digits: [69, 4] });
             return res;
         }
         else {
@@ -144,10 +147,10 @@ patch(Payment.prototype, {
     setup() {
         super.setup(...arguments);
         var self = this;
-        self.other_currency_id = false
-        self.other_currency_rate = false
-        self.other_currency_amount = 0.0
-        self.otc_amount = 0.0
+        // self.other_currency_id = false
+        // self.other_currency_rate = false
+        // self.other_currency_amount = 0.0
+        // self.otc_amount = 0.0
         self.currency_id = self.currency_id || false;
         self.other_currency_id = self.currency_id || false;
         self.other_currency_rate = self.other_currency_rate || false;
